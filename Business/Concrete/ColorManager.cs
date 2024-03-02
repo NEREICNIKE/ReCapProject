@@ -18,7 +18,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public List<Color> GetCarsByColorId(int id)
+        public Color GetCarsByColorId(int id)
         {
             throw new NotImplementedException();
         }

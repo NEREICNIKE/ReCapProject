@@ -1,7 +1,8 @@
 ﻿using DataAccess.Abstract;
+using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,34 +12,58 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfColorDal : IColorDal
     {
-        public void Add(Entities.Concrete.Color entity)
+        public void Add(Color entity)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            }
         }
 
-        public void Delete(Entities.Concrete.Color entity)
+        public void Delete(Color entity)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                var deletedEntity = context.Entry(entity);
+                deletedEntity.State = EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
-        public Entities.Concrete.Color Get(Expression<Func<Entities.Concrete.Color, bool>> filter)
+        public Color Get(Expression<Func<Color, bool>> filter)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                return context.Set<Color>().SingleOrDefault(filter);
+            }
         }
 
-        public List<Entities.Concrete.Color> GetAll(Expression<Func<Entities.Concrete.Color, bool>> filter = null)
+        public List<Color> GetAll(Expression<Func<Color, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                return filter == null ? context.Set<Color>().ToList() : context.Set<Color>().Where(filter).ToList();
+            }
         }
 
-        public List<Entities.Concrete.Color> GetById(int id)
+        public Color GetById(int id)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                return context.Colors.SingleOrDefault(c => c.ColorId == id);
+            }
         }
 
-        public void Update(Entities.Concrete.Color entity)
+        public void Update(Color entity)
         {
-            throw new NotImplementedException();
+            using (ReCapProjectDBContext context = new ReCapProjectDBContext())
+            {
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }

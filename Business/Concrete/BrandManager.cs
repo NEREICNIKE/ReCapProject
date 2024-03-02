@@ -16,7 +16,7 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public List<Brand> GetCarsByBrandId(int id)
+        public Brand GetCarsByBrandId(int id)
         {
             throw new NotImplementedException();
         }

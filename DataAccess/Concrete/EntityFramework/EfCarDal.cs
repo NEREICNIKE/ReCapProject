@@ -49,11 +49,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<Car> GetById(int id)
+        public Car GetById(int id)
         {
             using (ReCapProjectDBContext context = new ReCapProjectDBContext())
             {
-                return context.Set<Car>().Where(c => c.Id == id).ToList();
+                return context.Cars.SingleOrDefault(c => c.Id == id);
             }
         }
 
